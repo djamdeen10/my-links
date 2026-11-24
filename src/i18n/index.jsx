@@ -20,22 +20,9 @@ function readStoredLanguage() {
   try {
     return findLanguage(window.localStorage.getItem(STORAGE_KEY));
   } catch {
-    // Storage can be blocked (private mode); fall back to the browser language.
+    // Storage can be blocked (private mode); the visit simply stays unremembered.
     return null;
   }
-}
-
-// The first browser language the site speaks, English when none match.
-function detectBrowserLanguage() {
-  const tags =
-    typeof navigator === 'undefined' ? [] : navigator.languages ?? [navigator.language];
-
-  for (const tag of tags) {
-    const match = findLanguage(String(tag).split('-')[0]);
-    if (match) return match;
-  }
-
-  return DEFAULT_LANGUAGE;
 }
 
 // The URL is the source of truth: the prerendered page and the first client
@@ -58,6 +45,14 @@ export function I18nProvider({ children, initialLanguage }) {
 
     setLanguageState(next);
 
+    // Only a real choice is remembered: a page opened from a link must not
+    // decide the language the visitor comes back to.
+    try {
+      window.localStorage.setItem(STORAGE_KEY, next.code);
+    } catch {
+      // Storage can be blocked (private mode); the choice still applies today.
+    }
+
     if (languageFromPath(window.location.pathname)?.code !== next.code) {
       // A push, not a replace: the back button returns to the previous language.
       window.history.pushState(null, '', languagePath(next.code));
@@ -71,26 +66,18 @@ export function I18nProvider({ children, initialLanguage }) {
     applyDocumentLanguage(language);
   }, [language]);
 
-  // `/` is the English page. A language the visitor already picked, or the one
-  // their browser asks for, sends them to that language's own URL once.
+  // `/` is the English page. A first visit stays there, whatever the browser
+  // asks for; only a language picked earlier sends the visitor to its own URL.
   useEffect(() => {
     if (initialLanguage) return;
     if (languageFromPath(window.location.pathname)) return;
 
-    const preferred = readStoredLanguage() ?? detectBrowserLanguage();
-    if (preferred.code === DEFAULT_LANGUAGE.code) return;
+    const preferred = readStoredLanguage();
+    if (!preferred || preferred.code === DEFAULT_LANGUAGE.code) return;
 
     window.history.replaceState(null, '', languagePath(preferred.code));
     setLanguageState(preferred);
   }, [initialLanguage]);
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, language.code);
-    } catch {
-      // Nothing to remember, the choice still applies to this visit.
-    }
-  }, [language.code]);
 
   // Back and forward move between language URLs without a reload.
   useEffect(() => {
