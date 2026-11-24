@@ -1,0 +1,361 @@
+/* Explicit sources: automatic detection would also scan `dist/`, so a second
+   build would pick up classes from the first build's generated pages.
+   `public/` and the build scripts carry no markup. */
+@import "tailwindcss" source(none);
+
+@source "../index.html";
+@source "../src";
+
+/* Dark-only page. The variant keeps the handful of `dark:` utilities used
+   by the portfolio's components explicit instead of relying on media queries. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------- Fonts ------------------------------- */
+
+/* Playfair Display is the only family used by the site. Latin, latin-ext and
+   cyrillic subsets are local; non-Latin scripts fall back to the system. */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/playfair-display-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+    U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ------------------------------- Theme ------------------------------- */
+
+@theme {
+  --font-sans: "Playfair Display", ui-serif, Georgia, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", serif;
+  --font-mono: "Playfair Display", ui-serif, Georgia, serif;
+
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a1a1a1;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  --radius-xs: 0.125rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+
+/* Playfair Display only carries Latin and Cyrillic. Arabic and CJK fall
+   through to the families the platform draws those scripts with, so the type
+   stays readable instead of landing on a generic serif. */
+html:lang(ar) {
+  --font-sans: "Playfair Display", "Noto Naskh Arabic", "Geeza Pro", "Segoe UI", Tahoma, serif;
+  --font-mono: "Playfair Display", "Noto Naskh Arabic", "Segoe UI", monospace;
+}
+
+html:lang(zh) {
+  --font-sans: "Playfair Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans SC", serif;
+  --font-mono: "Playfair Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans SC", monospace;
+}
+
+html:lang(ja) {
+  --font-sans: "Playfair Display", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", Meiryo, serif;
+  --font-mono: "Playfair Display", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", Meiryo,
+    monospace;
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: #0a0a0a;
+  --card-foreground: #fafafa;
+  --muted: #262626;
+  --muted-foreground: #a1a1a1;
+  --border: #262626;
+  --ring: #525252;
+  --radius: 0.625rem;
+
+  --grid-bg: #0a0a0a;
+  --grid-line: #ffffff11;
+
+  --glass-border: rgb(255 255 255 / 0.12);
+  --glass-border-hover: rgb(255 255 255 / 0.24);
+  --glass-sheen: linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0));
+  --glass-chip-bg: linear-gradient(180deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.04));
+  --glass-inset: inset 0 1px 0 rgb(255 255 255 / 0.14);
+  --glass-shadow-chip: 0 1px 2px rgb(0 0 0 / 0.35), 0 1px 1px rgb(0 0 0 / 0.25);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  html {
+    color-scheme: dark;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  body {
+    background-color: var(--grid-bg);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer utilities {
+  /* Same fixed grid as the portfolio, so the two pages share a backdrop. */
+  .bg-grid {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--grid-bg);
+  }
+
+  .bg-grid::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: linear-gradient(90deg, #ffffff09 1px, #0000 1px),
+      linear-gradient(#ffffff09 1px, #0000 1px);
+    background-position: left top;
+    background-size: 26px 26px;
+  }
+
+  /* -------------------------- Liquid glass -------------------------- */
+
+  .hero-photo {
+    filter: brightness(0.82) saturate(0.88) contrast(1.04);
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      #000 72%,
+      rgb(0 0 0 / 0.85) 81%,
+      rgb(0 0 0 / 0.45) 89%,
+      rgb(0 0 0 / 0.12) 96%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      #000 72%,
+      rgb(0 0 0 / 0.85) 81%,
+      rgb(0 0 0 / 0.45) 89%,
+      rgb(0 0 0 / 0.12) 96%,
+      transparent 100%
+    );
+  }
+
+  .hero-top-scrim {
+    background: linear-gradient(180deg, rgb(0 0 0 / 0.28) 0%, rgb(0 0 0 / 0) 34%);
+  }
+
+  .hero-controls {
+    padding-top: max(0.875rem, env(safe-area-inset-top, 0px));
+  }
+
+  .glass-chip {
+    position: relative;
+    background-image: var(--glass-sheen), var(--glass-chip-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-inset), var(--glass-shadow-chip);
+  }
+
+  .glass-interactive {
+    transition:
+      transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      filter 0.2s ease;
+  }
+
+  .glass-interactive:hover {
+    transform: translateY(-1px);
+    border-color: var(--glass-border-hover);
+  }
+
+  .glass-chip.glass-interactive:hover {
+    box-shadow: var(--glass-inset), 0 3px 8px rgb(0 0 0 / 0.4);
+  }
+
+  /* USW liquid shell: the same rim-light treatment as the portfolio. */
+  .usw-liquid {
+    --hl-glass-fill: rgb(255 255 255 / 0.08);
+    --hl-glass-rim: linear-gradient(
+      135deg,
+      rgb(255 255 255 / 0.475),
+      rgb(255 255 255 / 0.125) 35%,
+      rgb(255 255 255 / 0.06) 65%,
+      rgb(255 255 255 / 0.3)
+    );
+    --hl-glass-text: #e3e3e3;
+    --hl-glass-shadow: none;
+  }
+
+  .usw-liquid .glass-chip {
+    position: relative;
+    border: 1px solid transparent;
+    background: var(--hl-glass-fill);
+    color: var(--hl-glass-text);
+    box-shadow: var(--hl-glass-shadow);
+  }
+
+  .usw-liquid .glass-chip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--hl-glass-rim);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .usw-liquid .glass-chip.glass-interactive:hover {
+    filter: brightness(1.04);
+  }
+
+  .page-footer {
+    padding-bottom: max(1.75rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  /* ---------------------------- Motion ---------------------------- */
+
+  .enter {
+    animation: enter-up 640ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes enter-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .filter-enter {
+    animation: filter-in 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes filter-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .pop-in {
+    animation: pop-in 190ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* The language menu opens on the reading-start edge, so picking العربية does
+     not push it off-screen. */
+  .lang-menu {
+    inset-inline-start: 0;
+    transform-origin: top left;
+  }
+
+  html[dir="rtl"] .lang-menu {
+    transform-origin: top right;
+  }
+
+  /* The active group pill is measured on the real button and slides between
+     labels of different widths, so the movement stays visible. */
+  .tab-pill-slide {
+    will-change: left, width;
+    transition:
+      left 320ms cubic-bezier(0.4, 0, 0.2, 1),
+      width 320ms cubic-bezier(0.4, 0, 0.2, 1),
+      top 320ms cubic-bezier(0.4, 0, 0.2, 1),
+      height 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .enter,
+    .filter-enter,
+    .pop-in {
+      animation: none;
+    }
+
+    .glass-interactive,
+    .glass-interactive:hover {
+      transition: none;
+      transform: none;
+    }
+
+    .tab-pill-slide {
+      transition: none;
+    }
+  }
+}

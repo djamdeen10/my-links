@@ -1,0 +1,8 @@
+node_modules/
+dist/
+dist-ssr/
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+*.log
