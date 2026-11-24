@@ -12,7 +12,7 @@ const fr = {
   },
   taglines: {
     role: 'Développeur backend',
-    ai: 'Créateur IA',
+    ai: 'Créateur assisté par IA',
     fcb: 'Fan du FC Barcelone',
     cats: 'Amoureux des chats',
   },

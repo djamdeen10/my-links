@@ -34,7 +34,8 @@ export const profile = {
 // The curated first tab: the links to put forward. AgentMob is the
 // featured card below them, not a separate row.
 export const pinnedLinks = [
-  { id: 'website', href: 'https://djamdeen.com' },
+  // `uppercase` is the one row the design sets in caps: the personal site.
+  { id: 'website', href: 'https://djamdeen.com', uppercase: true },
   { id: 'github', href: 'https://github.com/djamdeen10' },
 ];
 
