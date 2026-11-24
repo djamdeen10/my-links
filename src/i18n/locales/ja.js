@@ -43,8 +43,7 @@ const ja = {
     coverAlt: 'AgentMob — マゼンタのターミナルロゴが入ったダークなカバー',
   },
   footer: {
-    location: 'ベナン・コトヌー',
-    timeTitle: '{location}の時刻',
+    rights: '無断転載を禁じます',
   },
   a11y: {
     socialLinks: 'ソーシャルリンク',

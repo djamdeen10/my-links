@@ -44,8 +44,7 @@ const ar = {
     coverAlt: 'AgentMob — غلاف داكن مع شعار الطرفية باللون الأرجواني',
   },
   footer: {
-    location: 'كوتونو، بنين',
-    timeTitle: 'توقيت {location}',
+    rights: 'جميع الحقوق محفوظة',
   },
   a11y: {
     socialLinks: 'روابط التواصل الاجتماعي',

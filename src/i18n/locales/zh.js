@@ -43,8 +43,7 @@ const zh = {
     coverAlt: 'AgentMob — 带洋红色终端标志的深色封面',
   },
   footer: {
-    location: '科托努，贝宁',
-    timeTitle: '{location}时间',
+    rights: '版权所有',
   },
   a11y: {
     socialLinks: '社交链接',

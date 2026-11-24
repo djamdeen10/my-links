@@ -5,7 +5,6 @@ export const profile = {
   name: 'Djam Deen',
   handle: 'djamdeen10',
   email: 'djamdeen10@gmail.com',
-  timeZone: 'Africa/Porto-Novo',
   website: 'https://djamdeen.com',
   photo: '/avatar.jpg',
   taglines: [

@@ -43,8 +43,7 @@ const ru = {
     coverAlt: 'AgentMob — тёмная обложка с розовым логотипом терминала',
   },
   footer: {
-    location: 'Котону, Бенин',
-    timeTitle: 'Время в {location}',
+    rights: 'Все права защищены',
   },
   a11y: {
     socialLinks: 'Соцсети',

@@ -44,8 +44,7 @@ const en = {
     coverAlt: 'AgentMob — dark cover with the magenta terminal logo',
   },
   footer: {
-    location: 'Cotonou, Benin',
-    timeTitle: '{location} time',
+    rights: 'All rights reserved',
   },
   a11y: {
     socialLinks: 'Social links',

@@ -43,8 +43,7 @@ const es = {
     coverAlt: 'AgentMob — portada oscura con el logo de terminal magenta',
   },
   footer: {
-    location: 'Cotonú, Benín',
-    timeTitle: 'Hora de {location}',
+    rights: 'Todos los derechos reservados',
   },
   a11y: {
     socialLinks: 'Redes sociales',

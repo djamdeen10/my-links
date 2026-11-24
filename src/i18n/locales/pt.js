@@ -43,8 +43,7 @@ const pt = {
     coverAlt: 'AgentMob — capa escura com o logótipo de terminal magenta',
   },
   footer: {
-    location: 'Cotonu, Benim',
-    timeTitle: 'Hora de {location}',
+    rights: 'Todos os direitos reservados',
   },
   a11y: {
     socialLinks: 'Redes sociais',
